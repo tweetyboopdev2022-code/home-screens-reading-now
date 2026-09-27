@@ -1,0 +1,74 @@
+{
+  "id": "reading-now",
+  "name": "What We're Reading",
+  "version": "1.0.0",
+  "description": "Book covers of what each person is reading, from a Todoist project (\"Title by Author\", labelled with the reader). Covers from Open Library.",
+  "author": "Tanya",
+  "license": "MIT",
+  "minAppVersion": "1.7.1",
+  "moduleType": "reading-now",
+  "category": "Family",
+  "icon": "BookOpen",
+  "defaultConfig": {
+    "projectName": "Reading",
+    "people": "Tanya, Vince, Nora",
+    "accentColor": "#7c3aed"
+  },
+  "defaultSize": {
+    "w": 1000,
+    "h": 360
+  },
+  "defaultStyle": {
+    "fontSize": 18,
+    "padding": 28,
+    "borderRadius": 28
+  },
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "projectName": {
+        "type": "string",
+        "title": "Todoist project",
+        "ui:widget": "text",
+        "ui:group": "Content"
+      },
+      "people": {
+        "type": "string",
+        "title": "Readers (labels)",
+        "ui:widget": "text",
+        "ui:group": "Content",
+        "description": "Comma separated, in display order"
+      },
+      "accentColor": {
+        "type": "string",
+        "title": "Accent colour",
+        "ui:widget": "color",
+        "ui:group": "Look"
+      }
+    }
+  },
+  "exports": {
+    "component": "default"
+  },
+  "dataRequirements": [],
+  "prefetchUrl": null,
+  "permissions": [
+    "network",
+    "secrets",
+    "storage"
+  ],
+  "secrets": [
+    {
+      "key": "todoist_token",
+      "label": "Todoist API token",
+      "description": "Todoist → Settings → Integrations → Developer → API token.",
+      "required": true,
+      "placeholder": "Your Todoist API token"
+    }
+  ],
+  "allowedDomains": [
+    "api.todoist.com",
+    "openlibrary.org",
+    "covers.openlibrary.org"
+  ]
+}
