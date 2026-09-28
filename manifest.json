@@ -1,8 +1,8 @@
 {
   "id": "reading-now",
   "name": "What We're Reading",
-  "version": "1.0.0",
-  "description": "Book covers of what each person is reading, from a Todoist project (\"Title by Author\", labelled with the reader). Covers from Open Library.",
+  "version": "2.0.0",
+  "description": "Book covers of what each person is reading, from their own Grimmory — the books on each person's “Currently Reading” magic shelf, read through Grimmory's OPDS feed.",
   "author": "Tanya",
   "license": "MIT",
   "minAppVersion": "1.7.1",
@@ -10,8 +10,9 @@
   "category": "Family",
   "icon": "BookOpen",
   "defaultConfig": {
-    "projectName": "Reading",
-    "people": "Tanya, Vince, Nora",
+    "readers": "Tanya | https://tweety-pc.taildf7c03.ts.net\nVince | https://tweety-pc.taildf7c03.ts.net\nNora | https://tweety-pc.taildf7c03.ts.net",
+    "shelfName": "Currently Reading",
+    "booksPerReader": 1,
     "accentColor": "#7c3aed"
   },
   "defaultSize": {
@@ -26,18 +27,28 @@
   "configSchema": {
     "type": "object",
     "properties": {
-      "projectName": {
+      "readers": {
         "type": "string",
-        "title": "Todoist project",
+        "title": "Readers",
+        "description": "One line each: Name | Grimmory address. Line 1 uses the Reader 1 secret, line 2 Reader 2, line 3 Reader 3.",
+        "ui:widget": "textarea",
+        "ui:group": "Content"
+      },
+      "shelfName": {
+        "type": "string",
+        "title": "Magic shelf name",
+        "description": "The magic shelf in each Grimmory (rule: Read status is Reading)",
         "ui:widget": "text",
         "ui:group": "Content"
       },
-      "people": {
-        "type": "string",
-        "title": "Readers (labels)",
-        "ui:widget": "text",
-        "ui:group": "Content",
-        "description": "Comma separated, in display order"
+      "booksPerReader": {
+        "type": "number",
+        "title": "Books per reader",
+        "minimum": 1,
+        "maximum": 2,
+        "ui:widget": "slider",
+        "ui:step": 1,
+        "ui:group": "Content"
       },
       "accentColor": {
         "type": "string",
@@ -54,21 +65,34 @@
   "prefetchUrl": null,
   "permissions": [
     "network",
+    "localNetwork",
     "secrets",
     "storage"
   ],
   "secrets": [
     {
-      "key": "todoist_token",
-      "label": "Todoist API token",
-      "description": "Todoist → Settings → Integrations → Developer → API token.",
+      "key": "reader1_login",
+      "label": "Reader 1 OPDS login (line 1 of Readers)",
+      "description": "Base64 of opds-username:password. On a Mac: printf 'user:password' | base64",
       "required": true,
-      "placeholder": "Your Todoist API token"
+      "placeholder": "dXNlcjpwYXNzd29yZA=="
+    },
+    {
+      "key": "reader2_login",
+      "label": "Reader 2 OPDS login (line 2 of Readers)",
+      "description": "Base64 of opds-username:password. On a Mac: printf 'user:password' | base64",
+      "required": false,
+      "placeholder": "dXNlcjpwYXNzd29yZA=="
+    },
+    {
+      "key": "reader3_login",
+      "label": "Reader 3 OPDS login (line 3 of Readers)",
+      "description": "Base64 of opds-username:password. On a Mac: printf 'user:password' | base64",
+      "required": false,
+      "placeholder": "dXNlcjpwYXNzd29yZA=="
     }
   ],
   "allowedDomains": [
-    "api.todoist.com",
-    "openlibrary.org",
-    "covers.openlibrary.org"
+    "*"
   ]
 }
